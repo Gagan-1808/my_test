@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: todo-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-frontend
+  template:
+    metadata:
+      labels:
+        app: todo-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: raichu08/todo-frontend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: AUTH_SERVICE_URL
+              value: "http://auth-service:3001"
+            - name: TODO_SERVICE_URL
+              value: "http://todo-service:3002"
+
+

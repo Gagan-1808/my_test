@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+      name: todo-config-todo
+      namespace: default
+data:
+  PORT: "3002"
+  DB_HOST: myapp.cfym6wc6iyzn.ap-south-1.rds.amazonaws.com
+  DB_NAME: todo_app
+  DB_PORT: "3306"
