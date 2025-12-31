@@ -5,7 +5,7 @@ metadata:
 spec:
   type: ClusterIP         # internal cluster IP
   selector:
-    app: todo-frontend    # must match your Deployment labels
+    app: todo-auth    # must match your Deployment labels
   ports:
     - port: 3001          # service port
       targetPort: 3001    # container port
