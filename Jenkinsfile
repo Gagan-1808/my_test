@@ -3,94 +3,53 @@ pipeline {
 
     triggers {
         githubPush()
-        }
+    }
+
     stages {
-        
-        stage('Deploy Auth and service to K8 cluster') {
-           steps {
-                script {
-                    echo "Deploying..."
-                    sh """
+
+        stage('Deploy Auth Service') {
+            steps {
+                dir('k8') {
+                    sh '''
                         kubectl apply -f deployment-auth.yml
                         kubectl apply -f service-auth.yml
-                    """
+                        kubectl rollout status deployment/auth-deployment --timeout=120s
+                    '''
                 }
             }
         }
 
-        stage('Test Deployment') {
+        stage('Deploy Todo Service') {
             steps {
-                script {
-                    echo "test deployment.."
-                    sh """
-                        sleep 10
-                        kubectl rollout status deployment/auth-deployment --timeout=120s
-                        kubectl wait --for=condition=Ready pod -l app=pdd --timeout=120s
-                    """
-                }
-            }
-        }
-        
-    stage('Deploy Todo and service to K8 cluster') {
-       steps {
-               script {
-                    echo "Deploying..."
-                    sh """
+                dir('k8') {
+                    sh '''
                         kubectl apply -f deployment-todo.yml
                         kubectl apply -f service-todo.yml
-                    """
+                        kubectl rollout status deployment/todo-deployment --timeout=120s
+                    '''
                 }
             }
         }
 
-        stage('Test Deployment') {
+        stage('Deploy Frontend Service') {
             steps {
-                script {
-                    echo "test deployment.."
-                    sh """
-                        sleep 10
-                        kubectl rollout status deployment/todo-deployment --timeout=120s
-                        kubectl wait --for=condition=Ready pod -l app=pdd --timeout=120s
-                    """
-                 }
-             }
-         }
-        
-        stage('Deploy frontend and service to K8 cluster') {
-           steps {
-                script {
-                    echo "Deploying..."
-                    sh """
+                dir('k8') {
+                    sh '''
                         kubectl apply -f deployment-frontend.yml
                         kubectl apply -f service-frontend.yml
-                    """
+                        kubectl rollout status deployment/frontend-deployment --timeout=120s
+                    '''
                 }
             }
         }
-
-        stage('Test Deployment') {
-            steps {
-                script {
-                    echo "test deployment.."
-                    sh """
-                        sleep 10
-                        kubectl rollout status deployment/frontend-deployment --timeout=120s
-                        kubectl wait --for=condition=Ready pod -l app=pdd --timeout=120s
-                    """
-                 }
-             }
-         }
     }
 
-  
-        
     post {
         success {
-            echo "Deployment Successfull"
+            echo "✅ Deployment Successful"
         }
         failure {
-            echo "Deployment failed"
+            echo "❌ Deployment Failed"
         }
     }
-}
 }
