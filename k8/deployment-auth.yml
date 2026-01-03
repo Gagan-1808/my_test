@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: raichu08/todo-auth:latest
+          image: raichu08/todo-auth:v8
           env:
             - name: PORT
               valueFrom:
