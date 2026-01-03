@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy Todo Service') {
             steps {
-                 script {
+                  dir('k8') {
                     sh '''
                         kubectl apply -f deployment-todo.yml
                         kubectl apply -f service-todo.yml
