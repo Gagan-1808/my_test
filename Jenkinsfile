@@ -9,7 +9,7 @@ pipeline {
 
          stage('Apply config and secrets') {
             steps {
-                dir('k8'){
+                script {
                     sh '''
                     kubectl apply -f secrets.yml
                     kubectl apply -f configmap-auth.yml
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Deploy Auth Service') {
             steps {
-                dir('k8') {
+                script {
                     sh '''
                         kubectl apply -f deployment-auth.yml
                         kubectl apply -f service-auth.yml
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy Todo Service') {
             steps {
-                dir('k8') {
+                 script {
                     sh '''
                         kubectl apply -f deployment-todo.yml
                         kubectl apply -f service-todo.yml
@@ -45,7 +45,7 @@ pipeline {
 
         stage('Deploy Frontend Service') {
             steps {
-                dir('k8') {
+                script {
                     sh '''
                         kubectl apply -f deployment-frontend.yml
                         kubectl apply -f service-frontend.yml
