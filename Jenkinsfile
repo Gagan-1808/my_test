@@ -31,11 +31,10 @@ pipeline {
             }
         }
     }
-   stages {
         
-        stage('Deploy Todo and service to K8 cluster') {
-           steps {
-                script {
+    stage('Deploy Todo and service to K8 cluster') {
+       steps {
+               script {
                     echo "Deploying..."
                     sh """
                         kubectl apply -f deployment-todo.yml
@@ -57,8 +56,6 @@ pipeline {
                  }
              }
          }
-    }
- stages {
         
         stage('Deploy frontend and service to K8 cluster') {
            steps {
