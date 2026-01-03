@@ -2,20 +2,21 @@
 
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
- 
+
 metadata:
   name: todo-cluster
   region: ap-south-1
 
 vpc:
- id: vpc-0b04026e16e0b9bd6
- subnets:
-   public:
-     ap-south-1a:
-       id: subnet-0a8b34dca25cc6cca
-     ap-south-1b:
-       id: subnet-00a52f7a70f1d38a1
-
+  id: vpc-053b5bc785fa1ccf3
+  subnets:
+    private:
+      ap-south-1a:
+        id: subnet-0adb4255efc10d129
+      ap-south-1b:
+        id: subnet-0e137b17de0311269
+  nat:
+       gateway: HighlyAvailable
 
 managedNodeGroups:
   - name: todo-nodes
@@ -23,3 +24,7 @@ managedNodeGroups:
     desiredCapacity: 2
     minSize: 1
     maxSize: 3
+    privateNetworking: true
+    subnets:
+      - subnet-0adb4255efc10d129
+      - subnet-0e137b17de0311269
