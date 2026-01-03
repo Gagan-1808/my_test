@@ -7,6 +7,18 @@ pipeline {
 
     stages {
 
+         stage('Apply config and secrets') {
+            steps {
+                dir('k8'){
+                    sh ''''
+                    kubectl apply -f configmap-auth.yml
+                    kubeclt apply -f configmap-todo.yml
+                    kubectl apply -f secrets.yml
+                    '''
+                }
+            }
+        }
+
         stage('Deploy Auth Service') {
             steps {
                 dir('k8') {
