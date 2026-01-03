@@ -13,7 +13,7 @@ pipeline {
                     sh '''
                     kubectl apply -f secrets.yml
                     kubectl apply -f configmap-auth.yml
-                    kubeclt apply -f configmap-todo.yml
+                    kubectl apply -f configmap-todo.yml
                     '''
                 }
             }
