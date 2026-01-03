@@ -10,10 +10,10 @@ pipeline {
          stage('Apply config and secrets') {
             steps {
                 dir('k8'){
-                    sh ''''
+                    sh '''
+                    kubectl apply -f secrets.yml
                     kubectl apply -f configmap-auth.yml
                     kubeclt apply -f configmap-todo.yml
-                    kubectl apply -f secrets.yml
                     '''
                 }
             }
