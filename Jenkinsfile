@@ -30,7 +30,6 @@ pipeline {
                 }
             }
         }
-    }
         
     stage('Deploy Todo and service to K8 cluster') {
        steps {
@@ -94,4 +93,4 @@ pipeline {
         }
     }
 }
-        
+}
