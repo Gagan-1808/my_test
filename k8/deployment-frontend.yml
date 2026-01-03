@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: raichu08/todo-frontend:v2
+          image: raichu08/todo-frontend:latest
           ports:
             - containerPort: 80
           env:
