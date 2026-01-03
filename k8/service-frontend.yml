@@ -12,5 +12,5 @@ spec:
     - name: http
       protocol: TCP
       port: 80        # External LB port
-      targetPort: 80  # Container port
+      targetPort: 3000 # Container port
 
